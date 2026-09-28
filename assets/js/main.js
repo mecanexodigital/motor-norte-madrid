@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initFaqAccordion();
   initCitaForm();
+  initHorario();
   document.getElementById('anio').textContent = new Date().getFullYear();
 });
 
@@ -109,6 +110,8 @@ function initFaqAccordion() {
  * servicio real (EmailJS, Formspree, etc.) en el futuro.
  */
 function initCitaForm() {
+  const N8N_WEBHOOK_URL = 'http://localhost:5678/webhook/formulario-taller';
+
   const form = document.getElementById('cita-form');
   if (!form) return;
 
@@ -117,9 +120,10 @@ function initCitaForm() {
   const validators = {
     nombre: (value) => value.trim().length >= 3,
     telefono: (value) => /^[+\d][\d\s]{7,}$/.test(value.trim()),
-    email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()),
+    email: (value) => value.trim().length === 0 || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()),
     vehiculo: (value) => value.trim().length >= 2,
     servicio: (value) => value.trim().length > 0,
+    descripcion: (value) => value.trim().length >= 5,
   };
 
   const errorMessages = {
@@ -128,9 +132,10 @@ function initCitaForm() {
     email: 'Introduce un email válido.',
     vehiculo: 'Indica marca y modelo de tu vehículo.',
     servicio: 'Selecciona un servicio.',
+    descripcion: 'Cuéntanos brevemente qué necesitas o qué problema has notado.',
   };
 
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     let isValid = true;
@@ -157,11 +162,93 @@ function initCitaForm() {
       return;
     }
 
-    // Demo: no se envía ninguna petición real. Solo confirmación visual.
-    feedback.textContent =
-      '¡Gracias! Esto es una demo, así que la solicitud no se ha enviado realmente. ' +
-      'En la versión final te contactaríamos en menos de 24h.';
-    feedback.className = 'form-feedback success';
-    form.reset();
+    const submitButton = form.querySelector('.form-submit');
+    const originalButtonText = submitButton ? submitButton.textContent : '';
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Enviando...';
+    }
+
+    try {
+      const response = await fetch(N8N_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre: form.elements.nombre.value,
+          telefono: form.elements.telefono.value,
+          email: form.elements.email.value,
+          vehiculo: form.elements.vehiculo.value,
+          servicio: form.elements.servicio.value,
+          descripcion: form.elements.descripcion.value,
+          fecha: form.elements.fecha.value,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.ok === true) {
+        feedback.textContent =
+          '¡Gracias! Hemos recibido tu solicitud, te contactaremos lo antes posible.';
+        feedback.className = 'form-feedback success';
+        form.reset();
+      } else {
+        feedback.textContent =
+          'No hemos podido enviar tu solicitud. Inténtalo de nuevo o llámanos directamente.';
+        feedback.className = 'form-feedback error';
+      }
+    } catch (error) {
+      feedback.textContent =
+        'No hemos podido enviar tu solicitud. Inténtalo de nuevo o llámanos directamente.';
+      feedback.className = 'form-feedback error';
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
+    }
   });
+}
+
+/* ---------- Horario: "abierto ahora" y día de hoy ----------
+ * Usa la hora de Madrid, no la del dispositivo del visitante.
+ */
+function initHorario() {
+  const estado = document.getElementById('horario-estado');
+  if (!estado) return;
+
+  // [apertura, cierre] en minutos desde medianoche; índice 0 = domingo.
+  const horario = {
+    0: null,
+    1: [480, 1140], 2: [480, 1140], 3: [480, 1140], 4: [480, 1140], 5: [480, 1140],
+    6: [540, 840],
+  };
+  const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+  const hora = (min) => `${Math.floor(min / 60)}:${String(min % 60).padStart(2, '0')}`;
+
+  const partes = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Madrid', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+  }).formatToParts(new Date());
+  const get = (type) => partes.find((p) => p.type === type).value;
+  const hoy = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(get('weekday'));
+  const ahora = Number(get('hour')) * 60 + Number(get('minute'));
+
+  document.querySelector(`.horario-table tr[data-days="${hoy}"]`)?.classList.add('is-today');
+
+  const tramo = horario[hoy];
+  if (tramo && ahora >= tramo[0] && ahora < tramo[1]) {
+    estado.textContent = `Abierto ahora. Cerramos a las ${hora(tramo[1])}.`;
+    estado.classList.add('is-open');
+    return;
+  }
+
+  // Busca la próxima apertura (hoy más tarde o en los días siguientes).
+  for (let i = 0; i < 7; i++) {
+    const dia = (hoy + i) % 7;
+    const t = horario[dia];
+    if (!t || (i === 0 && ahora >= t[0])) continue;
+    const cuando = i === 0 ? 'hoy' : i === 1 ? 'mañana' : `el ${dias[dia]}`;
+    estado.textContent = `Cerrado ahora. Abrimos ${cuando} a las ${hora(t[0])}.`;
+    return;
+  }
 }

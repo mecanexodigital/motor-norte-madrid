@@ -13,8 +13,8 @@ transmitir confianza y captar solicitudes de cita/presupuesto.
 motor-norte-madrid/
 ├── index.html                  # Página única con navegación por anclas
 ├── assets/
-│   ├── css/styles.css          # Estilos (mobile-first, paleta grafito + naranja)
-│   ├── js/main.js              # Menú móvil, acordeón FAQ, validación de formulario
+│   ├── css/styles.css          # Estilos (mobile-first, concepto "hoja de presupuesto")
+│   ├── js/main.js              # Menú móvil, FAQ, formulario, horario "abierto ahora"
 │   └── icons/favicon.svg       # Favicon
 ├── docs/
 │   └── automatizacion.md       # Propuesta de automatización de atención al cliente

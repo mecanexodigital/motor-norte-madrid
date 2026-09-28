@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Motor Norte Madrid | Taller Mecánico de Confianza</title>
   <meta name="description" content="Taller mecánico en el norte de Madrid. Mantenimiento, revisiones, diagnosis, neumáticos, frenos e ITV. Pide tu cita o presupuesto sin compromiso." />
+  <meta name="theme-color" content="#1E2B45" />
 
   <!-- Favicon: SVG moderno + fallback PNG para navegadores/plataformas que no soportan SVG -->
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
@@ -30,6 +31,11 @@
   <meta name="twitter:description" content="Mantenimiento, revisiones, diagnosis, neumáticos, frenos e ITV en el norte de Madrid. Pide tu cita o presupuesto sin compromiso." />
   <meta name="twitter:image" content="assets/img/og-image.png" />
 
+  <!-- Tipografía: Archivo (eje de anchura para titulares) + Caveat (solo notas a mano) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Caveat:wght@500;700&display=swap" />
+
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
@@ -38,15 +44,14 @@
 
   <header class="site-header" id="site-header">
     <div class="container header-inner">
-      <a href="#inicio" class="logo">Motor<span>Norte</span>Madrid</a>
+      <a href="#inicio" class="logo"><b>Motor Norte</b> Madrid</a>
 
-      <nav class="main-nav" id="main-nav">
+      <nav class="main-nav" id="main-nav" aria-label="Principal">
         <ul>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#ventajas">Ventajas</a></li>
+          <li><a href="#servicios">Servicios y precios</a></li>
+          <li><a href="#como-trabajamos">Cómo trabajamos</a></li>
           <li><a href="#testimonios">Opiniones</a></li>
-          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#faq">Preguntas</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
         <a href="#cita" class="btn btn-primary nav-cta">Pedir cita</a>
@@ -64,132 +69,147 @@
     <section id="inicio" class="hero">
       <div class="container hero-inner">
         <div class="hero-text">
-          <p class="eyebrow">Taller mecánico multimarca · Zona Norte de Madrid</p>
-          <h1>Cuidamos tu coche como si fuera nuestro</h1>
+          <h1>Te decimos lo que cuesta antes de tocar tu coche</h1>
           <p class="hero-lead">
-            Mantenimiento, revisiones y reparaciones con mecánicos certificados, piezas de calidad
-            y presupuesto claro antes de tocar tu vehículo. Sin sorpresas, sin letra pequeña.
+            Taller multimarca en el norte de Madrid. Diagnosticamos, te damos el presupuesto
+            por escrito y no empezamos hasta que lo firmas. Lo que firmas es lo que pagas.
           </p>
           <div class="hero-actions">
             <a href="#cita" class="btn btn-primary btn-lg">Pedir cita o presupuesto</a>
-            <a href="https://wa.me/34600000000" class="btn btn-outline btn-lg" target="_blank" rel="noopener">
-              Hablar por WhatsApp
+            <a href="https://wa.me/34600000000" class="btn btn-ghost btn-lg" target="_blank" rel="noopener">
+              Escribir por WhatsApp
             </a>
           </div>
-          <ul class="hero-badges">
-            <li>Presupuesto sin compromiso</li>
-            <li>Garantía en reparaciones</li>
-            <li>Todas las marcas</li>
-          </ul>
         </div>
 
-        <div class="hero-visual" aria-hidden="true">
-          <div class="hero-visual-card">
-            <svg viewBox="0 0 24 24" class="hero-icon"><use href="#icon-gauge"></use></svg>
-            <p class="hero-visual-title">Diagnosis en el momento</p>
-            <p class="hero-visual-sub">Equipos de diagnosis electrónica para todas las marcas</p>
+        <figure class="presupuesto" aria-labelledby="presupuesto-caption">
+          <figcaption id="presupuesto-caption" class="presupuesto-caption">Así es un presupuesto nuestro (ejemplo)</figcaption>
+          <div class="presupuesto-sheet">
+            <div class="presupuesto-head">
+              <span class="presupuesto-title">Presupuesto</span>
+              <span class="presupuesto-num">Nº 0418</span>
+            </div>
+            <dl class="presupuesto-vehiculo">
+              <div><dt>Vehículo</dt><dd>Seat León 1.5 TSI</dd></div>
+              <div><dt>Km</dt><dd>84.300</dd></div>
+            </dl>
+            <table class="presupuesto-lines">
+              <caption class="visually-hidden">Desglose del presupuesto de ejemplo</caption>
+              <tbody>
+                <tr style="--i:0"><th scope="row">Pastillas de freno delanteras</th><td>58,40 €</td></tr>
+                <tr style="--i:1"><th scope="row">Discos de freno delanteros (par)</th><td>96,00 €</td></tr>
+                <tr style="--i:2"><th scope="row">Líquido de frenos DOT 4</th><td>14,90 €</td></tr>
+                <tr style="--i:3"><th scope="row">Mano de obra, 1,5 h × 48 €</th><td>72,00 €</td></tr>
+              </tbody>
+              <tfoot>
+                <tr class="presupuesto-sub"><th scope="row">Base imponible</th><td>241,30 €</td></tr>
+                <tr class="presupuesto-sub"><th scope="row">IVA 21 %</th><td>50,67 €</td></tr>
+                <tr class="presupuesto-total"><th scope="row">Total</th><td>291,97 €</td></tr>
+              </tfoot>
+            </table>
+            <p class="presupuesto-nota">Las pastillas traseras aguantan otros 15.000 km. No hace falta cambiarlas todavía. — Rubén</p>
+            <span class="presupuesto-sello" aria-hidden="true">Precio cerrado</span>
           </div>
-        </div>
+        </figure>
       </div>
     </section>
 
     <!-- SERVICIOS -->
     <section id="servicios" class="servicios">
       <div class="container">
-        <p class="section-eyebrow">Qué hacemos</p>
-        <h2>Servicios del taller</h2>
-        <p class="section-lead">Todo lo que tu vehículo necesita, en un mismo sitio.</p>
-
-        <div class="servicios-grid">
-          <article class="servicio-card">
-            <span class="servicio-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-wrench"></use></svg></span>
-            <h3>Mantenimiento</h3>
-            <p>Revisiones periódicas según el fabricante para alargar la vida de tu coche.</p>
-          </article>
-
-          <article class="servicio-card">
-            <span class="servicio-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-checklist"></use></svg></span>
-            <h3>Revisiones</h3>
-            <p>Chequeo completo de puntos clave antes de un viaje largo o la ITV.</p>
-          </article>
-
-          <article class="servicio-card">
-            <span class="servicio-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-gear"></use></svg></span>
-            <h3>Mecánica general</h3>
-            <p>Reparaciones de motor, transmisión, suspensión y dirección.</p>
-          </article>
-
-          <article class="servicio-card">
-            <span class="servicio-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-gauge"></use></svg></span>
-            <h3>Diagnosis electrónica</h3>
-            <p>Detección precisa de averías con equipos de diagnosis actualizados.</p>
-          </article>
-
-          <article class="servicio-card">
-            <span class="servicio-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-tire"></use></svg></span>
-            <h3>Neumáticos</h3>
-            <p>Montaje, equilibrado y alineación para tu seguridad y ahorro de combustible.</p>
-          </article>
-
-          <article class="servicio-card">
-            <span class="servicio-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-brake"></use></svg></span>
-            <h3>Frenos</h3>
-            <p>Revisión y sustitución de pastillas, discos y líquido de frenos.</p>
-          </article>
-
-          <article class="servicio-card">
-            <span class="servicio-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-drop"></use></svg></span>
-            <h3>Cambio de aceite</h3>
-            <p>Aceite y filtros adecuados para tu motor, con revisión de niveles incluida.</p>
-          </article>
-
-          <article class="servicio-card">
-            <span class="servicio-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-shield"></use></svg></span>
-            <h3>ITV / Pre-ITV</h3>
-            <p>Revisamos tu coche antes de la ITV para que la pases a la primera.</p>
-          </article>
+        <div class="section-head">
+          <h2>Servicios y precios</h2>
+          <p class="section-lead">
+            Precios orientativos con IVA para un turismo medio. El importe exacto de tu coche
+            va siempre en el presupuesto que firmas.
+          </p>
         </div>
+
+        <table class="tarifa">
+          <caption class="visually-hidden">Servicios del taller con tiempo habitual y precio orientativo</caption>
+          <thead>
+            <tr>
+              <th scope="col">Servicio</th>
+              <th scope="col">Tiempo habitual</th>
+              <th scope="col">Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Cambio de aceite y filtro<span>Aceite adecuado a tu motor y revisión de niveles.</span></th>
+              <td data-label="Tiempo">45 min</td>
+              <td data-label="Precio">desde 69 €</td>
+            </tr>
+            <tr>
+              <th scope="row">Mantenimiento según fabricante<span>La revisión que marca el libro de tu coche, sin perder la garantía oficial.</span></th>
+              <td data-label="Tiempo">2 h</td>
+              <td data-label="Precio">desde 139 €</td>
+            </tr>
+            <tr>
+              <th scope="row">Revisión pre-ITV<span>Repasamos lo que miran en la ITV para que la pases a la primera.</span></th>
+              <td data-label="Tiempo">30 min</td>
+              <td data-label="Precio">29 €</td>
+            </tr>
+            <tr>
+              <th scope="row">Diagnosis electrónica<span>Lectura de averías para todas las marcas. Gratis si reparas con nosotros.</span></th>
+              <td data-label="Tiempo">30 min</td>
+              <td data-label="Precio">35 €</td>
+            </tr>
+            <tr>
+              <th scope="row">Pastillas de freno, un eje<span>Incluye revisión de discos y del líquido de frenos.</span></th>
+              <td data-label="Tiempo">1 h</td>
+              <td data-label="Precio">desde 89 €</td>
+            </tr>
+            <tr>
+              <th scope="row">Montaje y equilibrado, 4 neumáticos<span>Neumático aparte. Te damos opciones de varias gamas.</span></th>
+              <td data-label="Tiempo">45 min</td>
+              <td data-label="Precio">desde 40 €</td>
+            </tr>
+            <tr>
+              <th scope="row">Alineación de dirección<span>Evita el desgaste irregular y ahorra combustible.</span></th>
+              <td data-label="Tiempo">40 min</td>
+              <td data-label="Precio">45 €</td>
+            </tr>
+            <tr>
+              <th scope="row">Mecánica general<span>Motor, embrague, suspensión, dirección y transmisión.</span></th>
+              <td data-label="Tiempo">Según avería</td>
+              <td data-label="Precio">Tras diagnosis</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
-    <!-- VENTAJAS -->
-    <section id="ventajas" class="ventajas">
+    <!-- CÓMO TRABAJAMOS -->
+    <section id="como-trabajamos" class="proceso">
       <div class="container">
-        <p class="section-eyebrow">Por qué elegirnos</p>
-        <h2>Un taller en el que puedes confiar</h2>
-
-        <div class="ventajas-grid">
-          <div class="ventaja-item">
-            <span class="ventaja-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"></use></svg></span>
-            <h3>Mecánicos certificados</h3>
-            <p>Equipo con formación continua en las últimas tecnologías del automóvil.</p>
-          </div>
-          <div class="ventaja-item">
-            <span class="ventaja-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"></use></svg></span>
-            <h3>Presupuesto sin compromiso</h3>
-            <p>Te explicamos qué necesita tu coche antes de empezar a trabajar en él.</p>
-          </div>
-          <div class="ventaja-item">
-            <span class="ventaja-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"></use></svg></span>
-            <h3>Garantía en reparaciones</h3>
-            <p>Todas nuestras intervenciones cuentan con garantía por escrito.</p>
-          </div>
-          <div class="ventaja-item">
-            <span class="ventaja-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"></use></svg></span>
-            <h3>Piezas de calidad</h3>
-            <p>Trabajamos solo con recambios homologados y de marcas reconocidas.</p>
-          </div>
-          <div class="ventaja-item">
-            <span class="ventaja-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"></use></svg></span>
-            <h3>Atención rápida</h3>
-            <p>Citas ágiles y tiempos de reparación ajustados a lo que te decimos.</p>
-          </div>
-          <div class="ventaja-item">
-            <span class="ventaja-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"></use></svg></span>
-            <h3>Precios transparentes</h3>
-            <p>Sin cargos ocultos: lo que se presupuesta es lo que se factura.</p>
-          </div>
+        <div class="section-head">
+          <h2>Cómo trabajamos</h2>
+          <p class="section-lead">Cinco pasos, siempre los mismos. Tú decides en el cuarto.</p>
         </div>
+
+        <ol class="proceso-list">
+          <li>
+            <h3>Nos cuentas qué le pasa</h3>
+            <p>Por teléfono, WhatsApp o el formulario. Si es urgente, te buscamos hueco el mismo día.</p>
+          </li>
+          <li>
+            <h3>Lo diagnosticamos</h3>
+            <p>Mecánicos certificados y equipos de diagnosis actualizados para todas las marcas.</p>
+          </li>
+          <li>
+            <h3>Te damos el presupuesto por escrito</h3>
+            <p>Pieza a pieza y con la mano de obra desglosada. Sin partidas genéricas.</p>
+          </li>
+          <li>
+            <h3>Tú decides</h3>
+            <p>No tocamos nada sin tu firma. Si al desmontar aparece algo nuevo, te llamamos antes de seguir.</p>
+          </li>
+          <li>
+            <h3>Reparamos con garantía</h3>
+            <p>Recambios homologados, el plazo que te dijimos y garantía por escrito de piezas y mano de obra.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -197,19 +217,21 @@
     <section id="cita" class="cita">
       <div class="container cita-inner">
         <div class="cita-info">
-          <p class="section-eyebrow">Reserva online</p>
           <h2>Pide tu cita o presupuesto</h2>
           <p class="section-lead">
-            Cuéntanos qué necesita tu coche y te contactaremos para confirmar día y hora.
-            Sin compromiso.
+            Cuéntanos qué necesita tu coche. Te llamamos para confirmar día y hora
+            y, si hace falta, para darte un primer precio.
           </p>
-          <p class="cita-note">
-            Esta es una demo: el formulario valida los datos en el propio navegador,
-            pero no envía la información a ningún servidor ni servicio externo todavía.
+          <p class="cita-alt">
+            ¿Prefieres hablar? Llama al <a href="tel:+34910000000">910 000 000</a>
+            o escribe al <a href="https://wa.me/34600000000" target="_blank" rel="noopener">600 000 000</a>.
           </p>
         </div>
 
         <form class="cita-form" id="cita-form" novalidate>
+          <p class="cita-form-title">Hoja de recepción</p>
+          <p class="cita-form-legend">Los campos con * son obligatorios.</p>
+
           <div class="form-row">
             <div class="form-group">
               <label for="nombre">Nombre y apellidos *</label>
@@ -225,8 +247,8 @@
 
           <div class="form-row">
             <div class="form-group">
-              <label for="email">Email *</label>
-              <input type="email" id="email" name="email" autocomplete="email" required />
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" autocomplete="email" />
               <span class="form-error" id="error-email"></span>
             </div>
             <div class="form-group">
@@ -260,8 +282,10 @@
           </div>
 
           <div class="form-group">
-            <label for="mensaje">Cuéntanos más (opcional)</label>
-            <textarea id="mensaje" name="mensaje" rows="4" placeholder="Ruidos, avisos en el cuadro, fecha de la ITV..."></textarea>
+            <label for="descripcion">¿Qué necesitas o qué problema has notado? *</label>
+            <textarea id="descripcion" name="descripcion" rows="4" aria-describedby="help-descripcion"></textarea>
+            <small class="form-help" id="help-descripcion">Ruidos, testigos encendidos en el cuadro, fecha de la ITV…</small>
+            <span class="form-error" id="error-descripcion"></span>
           </div>
 
           <button type="submit" class="btn btn-primary btn-lg form-submit">Solicitar cita</button>
@@ -274,28 +298,29 @@
     <!-- TESTIMONIOS -->
     <section id="testimonios" class="testimonios">
       <div class="container">
-        <p class="section-eyebrow">Opiniones</p>
-        <h2>Lo que dicen nuestros clientes</h2>
+        <div class="section-head">
+          <h2>Lo que dicen nuestros clientes</h2>
+        </div>
 
         <div class="testimonios-grid">
-          <blockquote class="testimonio-card">
-            <p>"Me explicaron todo antes de empezar y el precio final fue el que me dijeron. Ya no voy a otro sitio."</p>
+          <blockquote class="testimonio">
+            <p>Me explicaron todo antes de empezar y el precio final fue el que me dijeron. Ya no voy a otro sitio.</p>
             <footer>
               <span class="testimonio-nombre">Laura M.</span>
               <span class="testimonio-coche">Seat León</span>
             </footer>
           </blockquote>
 
-          <blockquote class="testimonio-card">
-            <p>"Detectaron una avería que en otro taller no habían encontrado. Muy profesionales y rápidos."</p>
+          <blockquote class="testimonio">
+            <p>Detectaron una avería que en otro taller no habían encontrado. Muy profesionales y rápidos.</p>
             <footer>
               <span class="testimonio-nombre">Javier R.</span>
               <span class="testimonio-coche">Volkswagen Golf</span>
             </footer>
           </blockquote>
 
-          <blockquote class="testimonio-card">
-            <p>"Pedí cita para la pre-ITV y aprobé sin problemas. Trato cercano y buen precio."</p>
+          <blockquote class="testimonio">
+            <p>Pedí cita para la pre-ITV y aprobé sin problemas. Trato cercano y buen precio.</p>
             <footer>
               <span class="testimonio-nombre">Ana G.</span>
               <span class="testimonio-coche">Peugeot 208</span>
@@ -307,9 +332,10 @@
 
     <!-- FAQ -->
     <section id="faq" class="faq">
-      <div class="container">
-        <p class="section-eyebrow">Dudas frecuentes</p>
-        <h2>Preguntas frecuentes</h2>
+      <div class="container faq-inner">
+        <div class="section-head">
+          <h2>Preguntas frecuentes</h2>
+        </div>
 
         <div class="faq-list">
           <div class="faq-item">
@@ -379,54 +405,48 @@
     <section id="contacto" class="contacto">
       <div class="container contacto-inner">
         <div class="contacto-info">
-          <p class="section-eyebrow">Contacto</p>
           <h2>Ven a vernos o escríbenos</h2>
 
           <ul class="contacto-list">
             <li>
-              <span class="contacto-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-phone"></use></svg></span>
-              <div>
-                <span class="contacto-label">Teléfono</span>
-                <a href="tel:+34910000000">910 000 000</a>
-              </div>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-phone"></use></svg>
+              <span class="contacto-label">Teléfono</span>
+              <a href="tel:+34910000000">910 000 000</a>
             </li>
             <li>
-              <span class="contacto-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-whatsapp"></use></svg></span>
-              <div>
-                <span class="contacto-label">WhatsApp</span>
-                <a href="https://wa.me/34600000000" target="_blank" rel="noopener">600 000 000</a>
-              </div>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-whatsapp"></use></svg>
+              <span class="contacto-label">WhatsApp</span>
+              <a href="https://wa.me/34600000000" target="_blank" rel="noopener">600 000 000</a>
             </li>
             <li>
-              <span class="contacto-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-mail"></use></svg></span>
-              <div>
-                <span class="contacto-label">Email</span>
-                <a href="mailto:info@motornortemadrid.es">info@motornortemadrid.es</a>
-              </div>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-mail"></use></svg>
+              <span class="contacto-label">Email</span>
+              <a href="mailto:info@motornortemadrid.es">info@motornortemadrid.es</a>
             </li>
             <li>
-              <span class="contacto-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-pin"></use></svg></span>
-              <div>
-                <span class="contacto-label">Dirección</span>
-                <span>Calle del Motor, 12 · 28034 Madrid</span>
-              </div>
-            </li>
-            <li>
-              <span class="contacto-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-clock"></use></svg></span>
-              <div>
-                <span class="contacto-label">Horario</span>
-                <span>Lun-Vie 8:00-19:00 · Sáb 9:00-14:00</span>
-              </div>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-pin"></use></svg>
+              <span class="contacto-label">Dirección</span>
+              <span>Calle del Motor, 12, 28034 Madrid</span>
             </li>
           </ul>
         </div>
 
-        <div class="contacto-map" aria-hidden="true">
-          <div class="map-placeholder">
-            <svg viewBox="0 0 24 24" class="map-icon"><use href="#icon-pin"></use></svg>
-            <p>Mapa de localización</p>
-            <span>(placeholder de demo)</span>
-          </div>
+        <div class="horario">
+          <h3 class="horario-title">Horario</h3>
+          <p class="horario-estado" id="horario-estado" aria-live="polite"></p>
+          <table class="horario-table">
+            <caption class="visually-hidden">Horario de apertura del taller</caption>
+            <tbody>
+              <tr data-days="1"><th scope="row">Lunes</th><td>8:00 – 19:00</td></tr>
+              <tr data-days="2"><th scope="row">Martes</th><td>8:00 – 19:00</td></tr>
+              <tr data-days="3"><th scope="row">Miércoles</th><td>8:00 – 19:00</td></tr>
+              <tr data-days="4"><th scope="row">Jueves</th><td>8:00 – 19:00</td></tr>
+              <tr data-days="5"><th scope="row">Viernes</th><td>8:00 – 19:00</td></tr>
+              <tr data-days="6"><th scope="row">Sábado</th><td>9:00 – 14:00</td></tr>
+              <tr data-days="0"><th scope="row">Domingo</th><td>Cerrado</td></tr>
+            </tbody>
+          </table>
+          <p class="horario-nota">Buzón de llaves para dejar el coche fuera de horario.</p>
         </div>
       </div>
     </section>
@@ -435,8 +455,8 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <a href="#inicio" class="logo logo-footer">Motor<span>Norte</span>Madrid</a>
-      <p>&copy; <span id="anio"></span> Motor Norte Madrid. Proyecto demo — Todos los datos son ficticios.</p>
+      <a href="#inicio" class="logo logo-footer"><b>Motor Norte</b> Madrid</a>
+      <p>&copy; <span id="anio"></span> Motor Norte Madrid. Proyecto demo: todos los datos y precios son ficticios.</p>
       <a href="#inicio" class="footer-top">Volver arriba</a>
     </div>
   </footer>
