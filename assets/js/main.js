@@ -104,13 +104,15 @@ function initFaqAccordion() {
 }
 
 /* ---------- Formulario de cita / presupuesto ----------
- * DEMO: solo valida los campos en el navegador.
- * No se envían datos a ningún servidor ni servicio externo.
- * Ver docs/automatizacion.md para cómo conectar esto a un
- * servicio real (EmailJS, Formspree, etc.) en el futuro.
+ * En local (localhost o abriendo el archivo) envía los datos al webhook de n8n.
+ * En la web publicada, el webhook de localhost no es accesible, así que solo
+ * valida y muestra un aviso de demo en lugar de un error de envío.
+ * Cuando n8n esté accesible desde internet, cambia N8N_WEBHOOK_URL y
+ * elimina la comprobación de IS_LOCAL. Ver docs/automatizacion.md.
  */
 function initCitaForm() {
   const N8N_WEBHOOK_URL = 'http://localhost:5678/webhook/formulario-taller';
+  const IS_LOCAL = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
 
   const form = document.getElementById('cita-form');
   if (!form) return;
@@ -159,6 +161,14 @@ function initCitaForm() {
     if (!isValid) {
       feedback.textContent = 'Revisa los campos marcados en rojo antes de continuar.';
       feedback.className = 'form-feedback error';
+      return;
+    }
+
+    if (!IS_LOCAL) {
+      feedback.textContent =
+        'Datos correctos. Esta web es una demo y todavía no envía solicitudes: para pedir cita, llámanos al 910 000 000.';
+      feedback.className = 'form-feedback success';
+      form.reset();
       return;
     }
 
