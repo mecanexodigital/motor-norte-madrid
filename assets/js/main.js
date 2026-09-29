@@ -117,6 +117,23 @@ function initCitaForm() {
 
   const feedback = document.getElementById('form-feedback');
 
+  // Fecha de hoy en Madrid (AAAA-MM-DD), no la del dispositivo del visitante.
+  const hoyMadrid = () =>
+    new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit',
+    }).format(new Date());
+
+  // Mañana en Madrid: la fecha mínima que se acepta.
+  const mananaMadrid = () => {
+    const d = new Date(`${hoyMadrid()}T00:00:00Z`);
+    d.setUTCDate(d.getUTCDate() + 1);
+    return d.toISOString().slice(0, 10);
+  };
+
+  // Ayuda al usuario: el selector de fecha no deja elegir hoy ni días pasados.
+  // La validación real está en el submit (el atributo min se puede saltar).
+  form.elements.fecha.min = mananaMadrid();
+
   const validators = {
     nombre: (value) => value.trim().length >= 3,
     telefono: (value) => /^[+\d][\d\s]{7,}$/.test(value.trim()),
@@ -124,6 +141,9 @@ function initCitaForm() {
     vehiculo: (value) => value.trim().length >= 2,
     servicio: (value) => value.trim().length > 0,
     descripcion: (value) => value.trim().length >= 5,
+    // Opcional; si viene rellena, debe ser AAAA-MM-DD y posterior a hoy.
+    fecha: (value) =>
+      value === '' || (/^\d{4}-\d{2}-\d{2}$/.test(value) && value >= mananaMadrid()),
   };
 
   const errorMessages = {
@@ -133,6 +153,7 @@ function initCitaForm() {
     vehiculo: 'Indica marca y modelo de tu vehículo.',
     servicio: 'Selecciona un servicio.',
     descripcion: 'Cuéntanos brevemente qué necesitas o qué problema has notado.',
+    fecha: 'Fecha no válida. Elige un día posterior a hoy.',
   };
 
   form.addEventListener('submit', async (event) => {
