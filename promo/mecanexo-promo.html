@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MecaNexo — Promo (demo ficticia)</title>
+<style>
+/* ==========================================================================
+   MecaNexo — animación promocional 9:16 (~22 s). Archivo único, sin librerías.
+
+   Dos identidades, separadas a propósito:
+   · --mx-*      MecaNexo. PROPUESTA provisional (no hay identidad definida en
+                 el repositorio). Cambia estos valores para reajustarla.
+   · --taller-*  Motor Norte Madrid, el taller FICTICIO de la demo. Copiados de
+                 assets/css/styles.css; solo se usan dentro de la pantalla del
+                 móvil y en la tarjeta que recibe el taller.
+   ========================================================================== */
+:root {
+  --mx-ink: #12202b;        /* texto y fondo del cierre */
+  --mx-bg: #eef3f2;         /* fondo del escenario */
+  --mx-soft: #4a5b66;       /* texto secundario */
+  --mx-accent: #0b8f80;     /* acento sobre fondo claro */
+  --mx-accent-on-dark: #3ddbc4;
+  --mx-font: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --taller-papel: #f4ebb0;
+  --taller-buzo: #1e2b45;
+  --taller-tinta: #2338b8;
+  --taller-senal: #f0be2c;
+  --taller-hormigon: #dcddd8;
+  --taller-ok: #17603a;
+  --taller-mano: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px; padding: 12px;
+  background: #0d1519; color: #fff; font-family: var(--mx-font);
+}
+
+/* Escenario de diseño fijo 540×960; el JS lo escala para que quepa. */
+#frame { position: relative; overflow: hidden; border-radius: 18px; }
+#stage {
+  position: absolute; top: 0; left: 0; width: 540px; height: 960px;
+  transform-origin: 0 0; overflow: hidden;
+  background: var(--mx-bg); color: var(--mx-ink);
+}
+#stage > *, .abs { position: absolute; }
+.hidden { opacity: 0; }
+
+/* Textos grandes */
+.big { left: 40px; right: 40px; margin: 0; font-weight: 800; line-height: 1.08; letter-spacing: -.02em; }
+.center { text-align: center; }
+
+/* Escena 1 */
+#s1a { top: 250px; font-size: 68px; }
+#s1b { top: 425px; font-size: 68px; color: var(--mx-accent); }
+#s1b u { text-decoration: none; position: relative; white-space: nowrap; }
+#uline { left: 0; right: 0; bottom: -6px; height: 8px; border-radius: 4px; background: var(--mx-ink);
+         transform-origin: 0 50%; transform: scaleX(0); }
+
+/* Escena 2 */
+#s2t { top: 130px; font-size: 62px; }
+.card2 { top: 330px; width: 210px; height: 340px; border-radius: 26px; background: #fff;
+         box-shadow: 0 10px 30px rgba(18,32,43,.12); display: flex; flex-direction: column;
+         align-items: center; justify-content: center; text-align: center; gap: 14px; padding: 16px; }
+.card2 svg { width: 110px; height: 110px; color: var(--mx-ink); }
+.card2 b { font-size: 40px; letter-spacing: -.01em; }
+.card2 span { font-size: 22px; color: var(--mx-soft); line-height: 1.2; }
+#c2a { left: 40px; } #c2b { right: 40px; }
+#y { left: 250px; width: 40px; top: 470px; text-align: center; font-size: 34px; font-weight: 700; color: var(--mx-soft); }
+
+/* Escena 3 — móvil */
+#s3t { top: 80px; font-size: 62px; }
+#phone { left: 110px; top: 250px; width: 320px; height: 640px; border-radius: 44px; background: var(--mx-ink);
+         padding: 14px; box-shadow: 0 18px 44px rgba(18,32,43,.28); transform-origin: 50% 50%; }
+#screen { position: relative; width: 100%; height: 100%; border-radius: 32px; overflow: hidden; background: var(--taller-hormigon);
+          color: var(--taller-buzo); }
+.layer { position: absolute; inset: 0; padding: 22px 18px; }
+.web-name { font-size: 15px; font-weight: 700; letter-spacing: .02em; margin: 0 0 26px; }
+.web-h { font-size: 27px; font-weight: 800; line-height: 1.1; margin: 0 0 24px; letter-spacing: -.01em; }
+.btn { display: block; width: 100%; padding: 17px 10px; border-radius: 10px; border: 2px solid var(--taller-buzo);
+       background: var(--taller-senal); color: var(--taller-buzo); font: 800 20px/1.1 var(--mx-font); text-align: center; }
+#formCard { background: var(--taller-papel); border-radius: 12px; padding: 16px 14px 18px; height: 100%; box-shadow: 0 2px 0 rgba(30,43,69,.25); }
+.f-title { margin: 0 0 12px; font-size: 21px; font-weight: 800; }
+.field { margin-bottom: 11px; }
+.field small { display: block; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.field div { min-height: 40px; border: 2px solid rgba(30,43,69,.4); border-radius: 8px; background: #fff; padding: 7px 10px;
+             font-family: var(--taller-mano); font-size: 22px; line-height: 1.2; color: var(--taller-tinta); }
+.field div.ph { font-family: var(--mx-font); font-size: 15px; color: #6b7280; line-height: 1.9; }
+.field div.on { border-color: var(--taller-tinta); }
+#submit { margin-top: 6px; }
+#thanks { margin: 12px 0 0; font-size: 16px; font-weight: 700; line-height: 1.25; color: var(--taller-ok); }
+#cursor { left: 0; top: 0; width: 34px; height: 34px; z-index: 5; filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); }
+
+/* Escena 4 — recepción */
+#s4t { top: 80px; font-size: 62px; }
+#miniPhone { left: 235px; top: 235px; width: 70px; height: 70px; color: var(--mx-ink); }
+#env { left: 245px; top: 0; width: 50px; height: 50px; color: var(--mx-accent); }
+#mail { left: 50px; top: 470px; width: 440px; border-radius: 20px; background: #fff; padding: 22px 26px 26px;
+        box-shadow: 0 14px 36px rgba(18,32,43,.16); }
+.m-top { font-size: 17px; color: var(--mx-soft); font-weight: 600; margin-bottom: 12px; }
+.m-sub { font-size: 34px; font-weight: 800; line-height: 1.1; margin-bottom: 14px; letter-spacing: -.01em; }
+.m-line { font-size: 26px; margin-bottom: 4px; }
+#tag { display: inline-block; margin-top: 18px; padding: 10px 18px; border-radius: 999px; font-size: 24px; font-weight: 800;
+       background: var(--taller-senal); color: var(--taller-buzo); border: 2px solid var(--taller-buzo); transform-origin: 0 50%; }
+#note { left: 50px; right: 50px; top: 830px; font-family: var(--taller-mano); font-size: 44px; color: var(--taller-tinta); line-height: 1; }
+
+/* Escena 5 — cierre */
+#s5bg { inset: 0; background: var(--mx-ink); }
+#s5t { top: 230px; font-size: 62px; color: #fff; }
+#s5t span { color: var(--mx-accent-on-dark); }
+#brand { top: 600px; font-size: 92px; font-weight: 900; color: #fff; letter-spacing: -.03em; }
+#brand span { color: var(--mx-accent-on-dark); }
+#fict { top: 740px; left: 0; right: 0; text-align: center; }
+#fict span { display: inline-block; padding: 10px 22px; border-radius: 999px; font-size: 24px; font-weight: 700;
+             border: 2px solid rgba(255,255,255,.55); color: #fff; }
+#corner { right: 16px; top: 14px; font-size: 14px; font-weight: 700; color: var(--mx-soft); opacity: .8; z-index: 9; }
+
+/* Controles */
+#bar { width: 100%; height: 5px; background: rgba(255,255,255,.18); border-radius: 3px; overflow: hidden; }
+#bar i { display: block; height: 100%; width: 0; background: var(--mx-accent-on-dark); }
+#ctl { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+#ctl button { font: 700 15px var(--mx-font); padding: 10px 14px; border-radius: 10px; border: 2px solid #3ddbc4;
+              background: transparent; color: #fff; cursor: pointer; }
+#ctl button:hover:not(:disabled) { background: rgba(61,219,196,.18); }
+#ctl button:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+#ctl button:disabled { opacity: .4; cursor: default; }
+/* Modo grabación (?record=1): solo el escenario, a pantalla completa */
+.rec, .rec body { overflow: hidden; }
+.rec body { padding: 0; gap: 0; background: var(--mx-bg); }
+.rec #wrap { gap: 0; }
+.rec #frame { border-radius: 0; }
+.rec #bar, .rec #ctl { display: none; }
+#wrap { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+</style>
+</head>
+<body>
+
+<div id="wrap">
+  <div id="frame">
+    <div id="stage" role="img" aria-label="Animación ficticia: un cliente envía una solicitud desde el móvil, llega al taller y queda pendiente de respuesta. MecaNexo: solicitudes desde el móvil y las llamadas de siempre.">
+
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+          <symbol id="i-phone" viewBox="0 0 24 24"><path fill="currentColor" d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1Z"/></symbol>
+          <symbol id="i-mobile" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 18.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+          <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5" fill="currentColor"/><path d="m3.5 7 8.5 6.5L20.5 7" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="i-cursor" viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L10.5 19z" fill="#fff" stroke="#12202b" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+        </defs>
+      </svg>
+
+      <div id="corner">Demo ficticia</div>
+
+      <!-- Escena 1 -->
+      <p class="big" id="s1a" data-in="0.3" data-out="3.7">No todos tus clientes</p>
+      <p class="big" id="s1b" data-in="1.4" data-out="3.7">quieren <u>llamar<i id="uline" class="abs"></i></u> para pedir cita</p>
+
+      <!-- Escena 2 -->
+      <p class="big center" id="s2t" data-in="4.2" data-out="8.0">Dos formas de pedir cita</p>
+      <div class="card2" id="c2a" data-in="4.9" data-out="8.0">
+        <svg><use href="#i-phone"/></svg><b>Llamar</b><span>Como siempre</span>
+      </div>
+      <div id="y" data-in="5.6" data-out="8.0">y</div>
+      <div class="card2" id="c2b" data-in="6.0" data-out="8.0">
+        <svg><use href="#i-mobile"/></svg><b>Escribir</b><span>Desde el móvil</span>
+      </div>
+
+      <!-- Escena 3 -->
+      <p class="big center" id="s3t" data-in="8.6" data-out="14.0">Envía la solicitud</p>
+      <div id="phone" class="hidden">
+        <div id="screen">
+          <div class="layer" id="layerA">
+            <p class="web-name">Motor Norte Madrid <span style="font-weight:500">· taller ficticio</span></p>
+            <p class="web-h">Te decimos lo que cuesta antes de tocar tu coche</p>
+            <span class="btn" id="btnAsk">Pedir cita o presupuesto</span>
+          </div>
+          <div class="layer hidden" id="layerB">
+            <div id="formCard">
+              <p class="f-title">Hoja de recepción</p>
+              <div class="field"><small>Nombre y apellidos *</small><div id="fNom"></div></div>
+              <div class="field"><small>Teléfono *</small><div id="fTel"></div></div>
+              <div class="field"><small>Servicio que necesitas *</small><div id="fSer" class="ph">Selecciona un servicio</div></div>
+              <span class="btn" id="submit">Solicitar cita</span>
+              <p id="thanks" class="hidden">¡Gracias! Hemos recibido tu solicitud, te contactaremos lo antes posible.</p>
+            </div>
+          </div>
+          <svg id="cursor" class="hidden"><use href="#i-cursor"/></svg>
+        </div>
+      </div>
+
+      <!-- Escena 4 -->
+      <p class="big center" id="s4t" data-in="14.3" data-out="18.3">Le llega al taller</p>
+      <svg id="miniPhone" class="hidden"><use href="#i-mobile"/></svg>
+      <svg id="env" class="hidden"><use href="#i-mail"/></svg>
+      <div id="mail" class="hidden">
+        <div class="m-top">Aviso por email al taller</div>
+        <div class="m-sub">Nueva solicitud de cita</div>
+        <div class="m-line">Cliente de prueba</div>
+        <div class="m-line" style="color:var(--mx-soft)">Revisión · 600 000 000</div>
+        <span id="tag" class="hidden">Pendiente de respuesta</span>
+      </div>
+      <div id="note" class="hidden center">El taller te llama para confirmar.</div>
+
+      <!-- Escena 5 -->
+      <div id="s5bg" class="hidden"></div>
+      <p class="big center" id="s5t" data-in="18.9" data-out="99">Solicitudes desde el móvil. <span>Y las llamadas de siempre.</span></p>
+      <div class="big center" id="brand" data-in="20.0" data-out="99">Meca<span>Nexo</span></div>
+      <div id="fict" data-in="20.6" data-out="99"><span>Demo ficticia</span></div>
+    </div>
+  </div>
+
+  <div id="bar"><i id="prog"></i></div>
+  <div id="ctl">
+    <button id="btnRestart" type="button">↺ Reproducir desde el principio</button>
+    <button id="btnPause" type="button" aria-pressed="false">⏸ Pausar</button>
+  </div>
+</div>
+
+<script>
+/* Reloj único. Todo el dibujo es una función pura de `t` (segundos): no hay
+   transiciones ni animaciones CSS que sincronizar. Pausar = dejar de avanzar
+   `t`; reiniciar = poner `t` a 0. Los estados se recalculan en cada frame. */
+(function () {
+  var DURATION = 22, W = 540, H = 960;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function (id) { return document.getElementById(id); };
+  var clamp = function (x) { return Math.min(1, Math.max(0, x)); };
+  var ease = function (x) { return 1 - Math.pow(1 - x, 3); };
+  var prog = function (t, a, d) { return ease(clamp((t - a) / (d || 0.6))); };
+  var lerp = function (a, b, k) { return a + (b - a) * k; };
+
+  var stage = $('stage'), frame = $('frame');
+  var fades = Array.prototype.slice.call(document.querySelectorAll('[data-in]'));
+  var el = {};
+  ['uline','phone','layerA','layerB','btnAsk','submit','fNom','fTel','fSer','thanks','cursor',
+   'miniPhone','env','mail','tag','note','s5bg','prog','btnPause','btnRestart'].forEach(function (id) { el[id] = $(id); });
+
+  var RECORD = new URLSearchParams(location.search).get('record') === '1';
+  if (RECORD) document.documentElement.classList.add('rec');
+
+  var t = 0, playing = true, last = null;
+
+  /* Cursor: puntos [tiempo, x, y] relativos a la pantalla del móvil. Los
+     destinos se miden sobre los botones reales para que siempre acierten. */
+  function center(node) { return [node.offsetLeft + node.offsetWidth / 2, node.offsetTop + node.offsetHeight / 2]; }
+  var path;
+  function buildPath() {
+    var a = center(el.btnAsk);
+    var s = center(el.submit);
+    path = [[8.9, 250, 560], [9.8, a[0], a[1] + 6], [10.6, 250, 540], [12.2, 250, 540], [12.85, s[0], s[1] + 4]];
+  }
+  function cursorAt(tt) {
+    if (tt <= path[0][0]) return path[0].slice(1);
+    for (var i = 1; i < path.length; i++) {
+      if (tt <= path[i][0]) {
+        var p0 = path[i - 1], p1 = path[i], k = ease(clamp((tt - p0[0]) / (p1[0] - p0[0])));
+        return [lerp(p0[1], p1[1], k), lerp(p0[2], p1[2], k)];
+      }
+    }
+    return path[path.length - 1].slice(1);
+  }
+
+  function typed(text, a, b, tt) { return text.slice(0, Math.round(text.length * clamp((tt - a) / (b - a)))); }
+
+  function render() {
+    // Fundidos genéricos: opacidad = entrada × (1 − salida)
+    fades.forEach(function (n) {
+      var i = prog(t, +n.dataset.in), o = prog(t, +n.dataset.out, 0.4);
+      n.style.opacity = i * (1 - o);
+      n.style.transform = reduce ? '' : 'translateY(' + (1 - i) * 26 + 'px)';
+    });
+
+    // E1: subrayado de «llamar»
+    el.uline.style.transform = 'scaleX(' + prog(t, 2.2, 0.7) + ')';
+    el.uline.style.opacity = 1 - prog(t, 3.7, 0.4);
+
+    // E3: móvil (aparece 8.6, sale 14.0). El cierre de E2 y la entrada de E3 se solapan.
+    var pi = prog(t, 8.6, 0.6), po = prog(t, 14.0, 0.4);
+    el.phone.style.opacity = pi * (1 - po);
+    el.phone.style.transform = reduce ? '' : 'scale(' + lerp(0.85, 1, pi) + ')';
+
+    // Pantalla A → B (10.2)
+    var sw = prog(t, 10.1, 0.4);
+    el.layerA.style.opacity = 1 - sw;
+    el.layerB.style.opacity = sw;
+
+    // Pulsaciones (botón se hunde 0.15 s)
+    var press = function (tt) { return (t > tt && t < tt + 0.18) ? 'scale(.96)' : ''; };
+    el.btnAsk.style.transform = press(9.8);
+    el.submit.style.transform = press(12.9);
+
+    // Formulario tal como es en la demo
+    var nom = typed('Cliente de prueba', 10.5, 11.5, t);
+    var tel = typed('600 000 000', 11.5, 12.1, t);
+    el.fNom.textContent = nom;
+    el.fTel.textContent = tel;
+    el.fNom.className = (t >= 10.5 && t < 11.5) ? 'on' : '';
+    el.fTel.className = (t >= 11.5 && t < 12.1) ? 'on' : '';
+    var ser = t >= 12.2;
+    el.fSer.textContent = ser ? 'Revisión' : 'Selecciona un servicio';
+    el.fSer.className = ser ? '' : 'ph';
+    el.submit.textContent = (t >= 12.95 && t < 13.5) ? 'Enviando...' : 'Solicitar cita';
+    el.thanks.style.opacity = prog(t, 13.5, 0.4);
+
+    // Cursor
+    var c = cursorAt(t);
+    el.cursor.style.transform = 'translate(' + c[0] + 'px,' + c[1] + 'px)';
+    el.cursor.style.opacity = prog(t, 8.9, 0.3) * (1 - prog(t, 13.4, 0.3));
+
+    // E4: teléfono pequeño, sobre que viaja, tarjeta recibida, etiqueta y nota
+    el.miniPhone.style.opacity = prog(t, 14.5, 0.4) * (1 - prog(t, 18.3, 0.4));
+    var fly = clamp((t - 14.9) / 0.9), fe = ease(fly);
+    el.env.style.transform = 'translateY(' + lerp(255, 500, fe) + 'px)';
+    el.env.style.opacity = (t >= 14.9 && t < 15.8) ? Math.min(1, (t - 14.9) / 0.15) : 0;
+    var mi = prog(t, 15.7, 0.5), mo = prog(t, 18.3, 0.4);
+    el.mail.style.opacity = mi * (1 - mo);
+    el.mail.style.transform = reduce ? '' : 'translateY(' + (1 - mi) * 30 + 'px)';
+    var tg = prog(t, 16.6, 0.35);
+    el.tag.style.opacity = tg * (1 - mo);
+    el.tag.style.transform = reduce ? '' : 'scale(' + lerp(0.8, 1, tg) + ')';
+    el.note.style.opacity = prog(t, 17.3, 0.5) * (1 - mo);
+
+    // E5: fondo oscuro
+    el.s5bg.style.opacity = prog(t, 18.3, 0.6);
+
+    el.prog.style.width = (t / DURATION * 100) + '%';
+  }
+
+  function setPlaying(p) {
+    playing = p;
+    last = null;
+    var ended = t >= DURATION;
+    el.btnPause.textContent = ended ? '⏸ Pausar' : (p ? '⏸ Pausar' : '▶ Reanudar');
+    el.btnPause.setAttribute('aria-pressed', String(!p && !ended));
+    el.btnPause.disabled = ended;
+  }
+
+  function tick(now) {
+    if (playing) {
+      if (last !== null) t = Math.min(DURATION, t + Math.min(0.1, (now - last) / 1000));
+      last = now;
+      if (t >= DURATION) setPlaying(false);
+    }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function fit() {
+    var k = RECORD ? Math.min(innerWidth / W, innerHeight / H)
+                   : Math.max(Math.min((innerWidth - 24) / W, (innerHeight - 24 - 120) / H, 1.4), 0.2);
+    frame.style.width = W * k + 'px';
+    frame.style.height = H * k + 'px';
+    stage.style.transform = 'scale(' + k + ')';
+    document.getElementById('bar').style.width = W * k + 'px';
+  }
+
+  el.btnRestart.addEventListener('click', function () { t = 0; setPlaying(true); render(); });
+  el.btnPause.addEventListener('click', function () { setPlaying(!playing); });
+  addEventListener('keydown', function (e) {
+    if (!RECORD && e.code === 'Space' && e.target === document.body) { e.preventDefault(); if (t < DURATION) setPlaying(!playing); }
+  });
+  addEventListener('resize', fit);
+
+  // Para pruebas manuales desde la consola: promo.seek(12.5)
+  window.promo = { seek: function (s) { t = clamp(s / DURATION) * DURATION; setPlaying(false); render(); } };
+
+  fit();
+  buildPath();
+  // Modo grabación: espera 3 s tras cargar y se reproduce una sola vez.
+  if (RECORD) {
+    setPlaying(false);
+    addEventListener('load', function () { setTimeout(function () { setPlaying(true); }, 3000); });
+  } else {
+    setPlaying(true);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
